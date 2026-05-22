@@ -3,709 +3,414 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Processing Portal</title>
+    <title>Asset Recovery & Treasury Services Portal</title>
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-hover: #172554;
-            --accent: #b45309;
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --treasury-blue: #0f294a;
+            --treasury-gold: #d97706;
+            --slate-dark: #1e293b;
+            --slate-light: #f8fafc;
+            --border-color: #cbd5e1;
+            --text-dark: #334155;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
-        /* Header Setup */
-        header {
-            background-color: var(--primary);
+        /* Top Government-Style Header Banner */
+        .top-bar {
+            background-color: var(--treasury-blue);
             color: white;
-            padding: 1.25rem 2rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid var(--treasury-gold);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        header h1 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+        .top-bar h1 {
+            font-size: 1.4rem;
+            font-weight: normal;
+            letter-spacing: 0.5px;
         }
 
-        .secure-badge {
-            background-color: rgba(255, 255, 255, 0.15);
-            padding: 0.4rem 0.8rem;
+        .system-status {
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 0.35rem 0.75rem;
             border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Container & Flow Layout */
-        main {
-            flex: 1;
+        /* Main Navigation Tabs Bar */
+        .nav-menu {
+            background-color: var(--slate-dark);
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
+            padding-left: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .portal-container {
-            background: var(--bg-card);
-            width: 100%;
-            max-width: 550px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-
-        /* Progress Tracker */
-        .tracker {
-            display: flex;
-            background: #f1f5f9;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .step-tab {
-            flex: 1;
-            text-align: center;
-            padding: 1rem 0.5rem;
-            font-size: 0.85rem;
+        .menu-tab {
+            font-family: sans-serif;
+            color: #94a3b8;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
             font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
             border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
         }
 
-        .step-tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: #ffffff;
+        .menu-tab:hover {
+            color: white;
+            background-color: rgba(255,255,255,0.05);
         }
 
-        /* Dynamic Views (Hidden by default, shown via JS) */
-        .portal-view {
-            display: none;
-            padding: 2.5rem 2rem;
+        .menu-tab.active-tab {
+            color: white;
+            border-bottom: 3px solid var(--treasury-gold);
+            background-color: rgba(255,255,255,0.1);
         }
 
-        .portal-view.active {
-            display: block;
+        /* Interface Container Layout */
+        .main-content {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .panel-card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: none; /* Hidden by default */
+        }
+
+        .panel-card.active-panel {
+            display: block; /* Shown when active */
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
+            color: var(--treasury-blue);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
         }
 
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
+        p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
         }
 
-        /* Forms & Inputs */
-        .form-group {
-            margin-bottom: 1.25rem;
+        /* Form Controls & Inputs */
+        .input-wrapper {
+            margin-bottom: 1.5rem;
+            max-width: 500px;
         }
 
         label {
             display: block;
+            font-family: sans-serif;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 0.5rem;
-            color: var(--text-main);
+            color: var(--slate-dark);
             text-transform: uppercase;
-            letter-spacing: 0.025em;
         }
 
-        input[type="text"], input[type="email"], select {
+        input[type="text"], select {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-size: 1rem;
-            background-color: #f8fafc;
-            transition: all 0.2s ease;
+            background-color: var(--slate-light);
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: var(--primary);
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+            border-color: var(--treasury-blue);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(15, 41, 74, 0.15);
         }
 
-        /* Action Buttons */
-        .btn-primary {
-            width: 100%;
-            background-color: var(--primary);
+        /* Secure Actions Buttons */
+        .action-btn {
+            font-family: sans-serif;
+            background-color: var(--treasury-blue);
             color: white;
             border: none;
-            padding: 0.85rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 6px;
+            padding: 0.85rem 2rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 1rem;
+            transition: background-color 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
+        .action-btn:hover {
+            background-color: #163e70;
         }
 
-        /* Live Loader Animation */
-        .loader-container {
+        /* Interactive Search Results Component */
+        .results-box {
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .results-header {
+            background-color: #e2e8f0;
+            padding: 0.75rem 1rem;
+            font-family: sans-serif;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .results-row {
+            padding: 1rem;
+            background-color: white;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Information List Styling */
+        .guide-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            font-size: 1.05rem;
+        }
+
+        /* Loading Box Indicator */
+        .loading-view {
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            display: none;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
+        .spinner-ring {
+            width: 45px;
+            height: 45px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--treasury-gold);
             border-radius: 50%;
-            margin: 0 auto 1.5rem auto;
-            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem auto;
+            animation: spinHorizontal 1s linear infinite;
         }
 
-        @keyframes spin {
+        @keyframes spinHorizontal {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* Secure Balance Dashboard Component */
-        .dashboard-box {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-            color: white;
-            padding: 1.75rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .dashboard-box span {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.8;
-        }
-
-        .dashboard-box h3 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-top: 0.25rem;
-            color: #f59e0b;
-        }
-
         footer {
+            background-color: var(--slate-dark);
+            color: #94a3b8;
             text-align: center;
             padding: 1.5rem;
+            font-family: sans-serif;
             font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            margin-top: auto;
+            border-top: 3px solid var(--treasury-gold);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>SECURE PROCESSING PORTAL</h1>
-        <div class="secure-badge">🔒 256-Bit Encryption</div>
-    </header>
+    <!-- Header Block -->
+    <div class="top-bar">
+        <h1>Asset Recovery & Treasury Services Portal</h1>
+        <div class="system-status">🔒 Secure Layer Active</div>
+    </div>
 
-    <main>
-        <div class="portal-container">
-            <!-- Progress Steps Bar -->
-            <div class="tracker">
-                <div class="step-tab active" id="tab-1">1. Verification</div>
-                <div class="step-tab" id="tab-2">2. Processing</div>
-                <div class="step-tab" id="tab-3">3. Dashboard</div>
+    <!-- Navigation Menu (These always work manually or automatically) -->
+    <div class="nav-menu">
+        <div class="menu-tab active-tab" id="tab-search" onclick="showTab('search')">Asset Search</div>
+        <div class="menu-tab" id="tab-howtoclaim" onclick="showTab('howtoclaim')">How to Claim</div>
+        <div class="menu-tab" id="tab-intake" onclick="showTab('intake')">File a Claim</div>
+    </div>
+
+    <!-- Interface Work Zones -->
+    <div class="main-content">
+
+        <!-- TAB 1: ASSET SEARCH PANEL -->
+        <div class="panel-card active-panel" id="panel-search">
+            <h2>Search Unclaimed Property Database</h2>
+            <p>Enter the full legal name or business entity matching the registry file to check database allocations.</p>
+            
+            <div class="input-wrapper">
+                <label for="searchName">Owner / Entity Name</label>
+                <input type="text" id="searchName" placeholder="Example: John Doe">
             </div>
 
-            <!-- STEP 1: Intake Information Form -->
-            <div class="portal-view active" id="view-1">
-                <h2>Identity Verification</h2>
-                <p class="subtitle">Please enter your reference information to locate your file.</p>
-                
-                <form id="intakeForm">
-                    <div class="form-group">
-                        <label for="fullName">Full Legal Name</label>
-                        <input type="text" id="fullName" placeholder="John Doe" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="referenceNum">File Reference Number</label>
-                        <input type="text" id="referenceNum" placeholder="TX-99382-UP" required>
-                    </div>
+            <!-- Using type="button" to prevent form reloading crashes entirely -->
+            <button type="button" class="action-btn" onclick="executeSearch()">Run Database Search</button>
 
-                    <div class="form-group">
-                        <label for="accountType">Account Registry Type</label>
-                        <select id="accountType">
-                            <option value="unclaimed">Unclaimed Property Division</option>
-                            <option value="treasury">Treasury Escrow Hold</option>
-                        </select>
-                    </div>
-
-                    <!-- Notice the type="button" execution or use form submit handling with preventDefault -->
-                    <button type="submit" class="btn-primary">Verify Information</button>
-                </form>
+            <!-- Loading Spinner State -->
+            <div class="loading-view" id="search-loading">
+                <div class="spinner-ring"></div>
+                <p style="font-family: sans-serif; font-size: 0.9rem;">Querying operational server clusters...</p>
             </div>
 
-            <!-- STEP 2: Live Processing Loader -->
-            <div class="portal-view" id="view-2">
-                <div class="loader-container">
-                    <div class="spinner"></div>
-                    <h2>Establishing Secure Link...</h2>
-                    <p class="subtitle" id="loading-text">Validating file credentials with system servers.</p>
+            <!-- Search Results Return Block -->
+            <div class="results-box" id="search-results">
+                <div class="results-header">1 Matching Record Found</div>
+                <div class="results-row">
+                    <div>
+                        <strong id="display-found-name">File Registry Match</strong><br>
+                        <span style="font-size: 0.85rem; color: #64748b;">Status: Unallocated Escrow Balance</span>
+                    </div>
+                    <button type="button" class="action-btn" style="padding: 0.5rem 1rem; font-size: 0.8rem; background-color: var(--treasury-gold);" onclick="showTab('intake')">Claim Asset</button>
                 </div>
-            </div>
-
-            <!-- STEP 3: Safe Mirror Dashboard -->
-            <div class="portal-view" id="view-3">
-                <h2>Verification Complete</h2>
-                <p class="subtitle">Your secure account registry balance is now accessible.</p>
-                
-                <div class="dashboard-box">
-                    <span>Total Unallocated Balance</span>
-                    <h3>$358,000.00</h3>
-                </div>
-
-                <div style="border-left: 4px solid #b45309; padding-left: 1rem; margin-bottom: 2rem;">
-                    <p style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;">
-                        Status: Awaiting Final Document Upload
-                    </p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
-                        Your tracking data has been logged. Please proceed to match files.
-                    </p>
-                </div>
-
-                <button class="btn-primary" onclick="alert('Portal updated successfully.')">Finish & Save</button>
             </div>
         </div>
-    </main>
 
+        <!-- TAB 2: HOW TO CLAIM INFORMATION PANEL -->
+        <div class="panel-card" id="panel-howtoclaim">
+            <h2>The Asset Recovery Process</h2>
+            <p>Unallocated balances are held under protective registry storage until proper corporate or individual verification is established. Follow these operational directions to execute a transfer:</p>
+            
+            <ul class="guide-list">
+                <li><strong>Step 1: Locate Record</strong> — Execute a search query via the database tracking system tab to confirm file numbers.</li>
+                <li><strong>Step 2: Submit Verification</strong> — Navigate to the "File a Claim" interface and input the correct reference credentials.</li>
+                <li><strong>Step 3: Document Validation</strong> — Once records link, upload standard identity verification parameters to process file clearing rules.</li>
+                <li><strong>Step 4: Safe Remittance</strong> — Verified balances are issued through encrypted routing allocations directly to the verified destination.</li>
+            </ul>
+
+            <button type="button" class="action-btn" onclick="showTab('intake')">Proceed to Claim Setup</button>
+        </div>
+
+        <!-- TAB 3: CLASSIFIED DATA INTAKE PANEL -->
+        <div class="panel-card" id="panel-intake">
+            <h2>Initiate File Recovery Processing</h2>
+            <p>Please provide the required informational parameters below to open the verification sequence.</p>
+            
+            <div class="input-wrapper">
+                <label for="claimantName">Full Legal Claimant Name</label>
+                <input type="text" id="claimantName" placeholder="Enter full name">
+            </div>
+
+            <div class="input-wrapper">
+                <label for="claimRef">File Allocation Reference Number</label>
+                <input type="text" id="claimRef" placeholder="Example: TX-99382-UP">
+            </div>
+
+            <div class="input-wrapper">
+                <label for="claimType">Asset Classification Category</label>
+                <select id="claimType">
+                    <option value="property">Unclaimed Property Hold</option>
+                    <option value="escrow">Treasury Escrow Remittance</option>
+                    <option value="clearing">Unallocated Corporate Balance</option>
+                </select>
+            </div>
+
+            <button type="button" class="action-btn" onclick="processClaimSubmit()">Validate & Open File</button>
+
+            <!-- Processing Screen View -->
+            <div class="loading-view" id="intake-processing" style="margin-top: 1.5rem;">
+                <div class="spinner-ring"></div>
+                <h3 style="color: var(--treasury-blue); margin-bottom: 0.5rem;">Verifying Reference Allocation...</h3>
+                <p style="font-family: sans-serif; font-size: 0.85rem; color: #64748b;">Do not close this panel. Establishing secure dashboard ledger modules.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Universal Footer Element -->
     <footer>
-        &copy; 2026 Secure Portal Systems. All rights reserved. Built with precision framework layouts.
+        Services provided through verified internal protocol standards. Built with secure client-side frameworks.
     </footer>
 
     <script>
-        // Form handling script that fixes the page reload crash
-        document.getElementById('intakeForm').addEventListener('submit', function(event) {
-            // CRITICAL FIX: This stops the page from reloading when the user hits submit!
-            event.preventDefault();
+        // Core Tab Switcher - Modifies element style states directly without touching web servers
+        function showTab(targetTabId) {
+            // Arrays of all tabs and all matching cards
+            const tabs = ['search', 'howtoclaim', 'intake'];
+            
+            tabs.forEach(tab => {
+                // Clear active design states from tabs
+                document.getElementById(`tab-${tab}`).classList.remove('active-tab');
+                // Hide all structural panels
+                document.getElementById(`panel-${tab}`).classList.remove('active-panel');
+            });
 
-            // Validate that inputs aren't empty
-            const nameField = document.getElementById('fullName').value.trim();
-            const refField = document.getElementById('referenceNum').value.trim();
+            // Set the targeted elements to active view spaces instantly
+            document.getElementById(`tab-${targetTabId}`).classList.add('active-tab');
+            document.getElementById(`panel-${targetTabId}`).classList.add('active-panel');
+            
+            // Clean up old window view scroll adjustments
+            window.scrollTo(0, 0);
+        }
 
-            if(nameField === "" || refField === "") {
-                alert("Please fill out all fields before proceeding.");
+        // Tab 1: Database Search Engine simulation logic
+        function executeSearch() {
+            const inputVal = document.getElementById('searchName').value.trim();
+            
+            if (inputVal === "") {
+                alert("Please input an entity or owner name to query the registry.");
                 return;
             }
 
-            // Move smoothly to Step 2 (Loader Screen)
-            switchView(1, 2);
+            // Hide previous data, show processing ring animation
+            document.getElementById('search-results').style.display = 'none';
+            document.getElementById('search-loading').style.display = 'block';
 
-            // Change loader messages sequentially over time to mimic real work
+            // Complete simulation framework loop after 1.5 seconds
             setTimeout(() => {
-                document.getElementById('loading-text').innerText = "Securing 256-bit environment encryption...";
+                document.getElementById('search-loading').style.display = 'none';
+                document.getElementById('display-found-name').innerText = inputVal;
+                document.getElementById('search-results').style.display = 'block';
             }, 1500);
-
-            setTimeout(() => {
-                document.getElementById('loading-text').innerText = "Syncing profile balances with dashboard indicators...";
-            }, 3000);
-
-            // Auto-advance to Step 3 (Dashboard View) after 4.5 seconds
-            setTimeout(() => {
-                switchView(2, 3);
-            }, 4500);
-        });
-
-        // Reusable view switching state function
-        function switchView(currentStep, nextStep) {
-            // Hide current layout view and update layout tabs
-            document.getElementById(`view-${currentStep}`).classList.remove('active');
-            document.getElementById(`tab-${currentStep}`).classList.remove('active');
-            
-            // Activate the next step panel safely
-            document.getElementById(`view-${nextStep}`).classList.add('active');
-            document.getElementById(`tab-${nextStep}`).classList.add('active');
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Processing Portal</title>
-    <style>
-        :root {
-            --primary: #1e3a8a;
-            --primary-hover: #172554;
-            --accent: #b45309;
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        // Tab 3: Intake submission processor logic
+        function processClaimSubmit() {
+            const name = document.getElementById('claimantName').value.trim();
+            const ref = document.getElementById('claimRef').value.trim();
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Header Setup */
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1.25rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        header h1 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        .secure-badge {
-            background-color: rgba(255, 255, 255, 0.15);
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* Container & Flow Layout */
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
-        }
-
-        .portal-container {
-            background: var(--bg-card);
-            width: 100%;
-            max-width: 550px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-
-        /* Progress Tracker */
-        .tracker {
-            display: flex;
-            background: #f1f5f9;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .step-tab {
-            flex: 1;
-            text-align: center;
-            padding: 1rem 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .step-tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: #ffffff;
-        }
-
-        /* Dynamic Views (Hidden by default, shown via JS) */
-        .portal-view {
-            display: none;
-            padding: 2.5rem 2rem;
-        }
-
-        .portal-view.active {
-            display: block;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Forms & Inputs */
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-
-        input[type="text"], input[type="email"], select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 1rem;
-            background-color: #f8fafc;
-            transition: all 0.2s ease;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
-        }
-
-        /* Action Buttons */
-        .btn-primary {
-            width: 100%;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.85rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            margin-top: 1rem;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-        }
-
-        /* Live Loader Animation */
-        .loader-container {
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            margin: 0 auto 1.5rem auto;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Secure Balance Dashboard Component */
-        .dashboard-box {
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-            color: white;
-            padding: 1.75rem;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .dashboard-box span {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.8;
-        }
-
-        .dashboard-box h3 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-top: 0.25rem;
-            color: #f59e0b;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>SECURE PROCESSING PORTAL</h1>
-        <div class="secure-badge">🔒 256-Bit Encryption</div>
-    </header>
-
-    <main>
-        <div class="portal-container">
-            <!-- Progress Steps Bar -->
-            <div class="tracker">
-                <div class="step-tab active" id="tab-1">1. Verification</div>
-                <div class="step-tab" id="tab-2">2. Processing</div>
-                <div class="step-tab" id="tab-3">3. Dashboard</div>
-            </div>
-
-            <!-- STEP 1: Intake Information Form -->
-            <div class="portal-view active" id="view-1">
-                <h2>Identity Verification</h2>
-                <p class="subtitle">Please enter your reference information to locate your file.</p>
-                
-                <form id="intakeForm">
-                    <div class="form-group">
-                        <label for="fullName">Full Legal Name</label>
-                        <input type="text" id="fullName" placeholder="John Doe" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="referenceNum">File Reference Number</label>
-                        <input type="text" id="referenceNum" placeholder="TX-99382-UP" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="accountType">Account Registry Type</label>
-                        <select id="accountType">
-                            <option value="unclaimed">Unclaimed Property Division</option>
-                            <option value="treasury">Treasury Escrow Hold</option>
-                        </select>
-                    </div>
-
-                    <!-- Notice the type="button" execution or use form submit handling with preventDefault -->
-                    <button type="submit" class="btn-primary">Verify Information</button>
-                </form>
-            </div>
-
-            <!-- STEP 2: Live Processing Loader -->
-            <div class="portal-view" id="view-2">
-                <div class="loader-container">
-                    <div class="spinner"></div>
-                    <h2>Establishing Secure Link...</h2>
-                    <p class="subtitle" id="loading-text">Validating file credentials with system servers.</p>
-                </div>
-            </div>
-
-            <!-- STEP 3: Safe Mirror Dashboard -->
-            <div class="portal-view" id="view-3">
-                <h2>Verification Complete</h2>
-                <p class="subtitle">Your secure account registry balance is now accessible.</p>
-                
-                <div class="dashboard-box">
-                    <span>Total Unallocated Balance</span>
-                    <h3>$358,000.00</h3>
-                </div>
-
-                <div style="border-left: 4px solid #b45309; padding-left: 1rem; margin-bottom: 2rem;">
-                    <p style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;">
-                        Status: Awaiting Final Document Upload
-                    </p>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
-                        Your tracking data has been logged. Please proceed to match files.
-                    </p>
-                </div>
-
-                <button class="btn-primary" onclick="alert('Portal updated successfully.')">Finish & Save</button>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2026 Secure Portal Systems. All rights reserved. Built with precision framework layouts.
-    </footer>
-
-    <script>
-        // Form handling script that fixes the page reload crash
-        document.getElementById('intakeForm').addEventListener('submit', function(event) {
-            // CRITICAL FIX: This stops the page from reloading when the user hits submit!
-            event.preventDefault();
-
-            // Validate that inputs aren't empty
-            const nameField = document.getElementById('fullName').value.trim();
-            const refField = document.getElementById('referenceNum').value.trim();
-
-            if(nameField === "" || refField === "") {
-                alert("Please fill out all fields before proceeding.");
+            if (name === "" || ref === "") {
+                alert("Please fully specify Claimant Name and File Reference parameters.");
                 return;
             }
 
-            // Move smoothly to Step 2 (Loader Screen)
-            switchView(1, 2);
+            // Display loading indicator
+            document.getElementById('intake-processing').style.display = 'block';
 
-            // Change loader messages sequentially over time to mimic real work
+            // Simulate file confirmation routing step
             setTimeout(() => {
-                document.getElementById('loading-text').innerText = "Securing 256-bit environment encryption...";
-            }, 1500);
-
-            setTimeout(() => {
-                document.getElementById('loading-text').innerText = "Syncing profile balances with dashboard indicators...";
+                document.getElementById('intake-processing').style.display = 'none';
+                alert("Verification Link Successful.\n\nFile reference " + ref + " has been successfully mapped to " + name + ".\n\nDashboard configuration complete.");
             }, 3000);
-
-            // Auto-advance to Step 3 (Dashboard View) after 4.5 seconds
-            setTimeout(() => {
-                switchView(2, 3);
-            }, 4500);
-        });
-
-        // Reusable view switching state function
-        function switchView(currentStep, nextStep) {
-            // Hide current layout view and update layout tabs
-            document.getElementById(`view-${currentStep}`).classList.remove('active');
-            document.getElementById(`tab-${currentStep}`).classList.remove('active');
-            
-            // Activate the next step panel safely
-            document.getElementById(`view-${nextStep}`).classList.add('active');
-            document.getElementById(`tab-${nextStep}`).classList.add('active');
         }
     </script>
 </body>
